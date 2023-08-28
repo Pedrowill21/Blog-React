@@ -1,3 +1,4 @@
+import { useAuthentication } from "../../hooks/useAuthentication"
 import style from "./Register.module.css"
 import { useState, useEffect } from "react"
 
@@ -9,8 +10,10 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
 
+  const {createUser, error:authError, loading} = useAuthentication();
 
-  const hadleSubmit = (e)=>{
+
+  const hadleSubmit = async (e)=>{
     e.preventDefault()
 
 
@@ -25,6 +28,8 @@ const Register = () => {
       setError("As senhas precisam ser iguais!")
       return
     }
+
+    const res = await createUser(user)
 
     console.log(user)
   }
