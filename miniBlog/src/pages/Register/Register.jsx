@@ -34,7 +34,11 @@ const Register = () => {
     console.log(user)
   }
 
-
+  useEffect(()=>{
+    if(authError){
+      setError(authError)
+    }
+  },[authError])
 
 
 
@@ -62,7 +66,8 @@ const Register = () => {
           <span>Comfirmação da Senha:</span>
           <input type="password" name="confirmPassword" placeholder="Confirme sua senha" required value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
         </label>
-        <button className="btn" type="submit">Cadastrar</button>
+       {!loading &&  <button className="btn" type="submit">Cadastrar</button>}
+       {loading &&  <button className="btn" type="submit" disabled>Aguarde</button>}
         {error && <p className="error">{error}</p>}
       </form>
 
